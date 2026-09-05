@@ -28,15 +28,16 @@ HMAC_KEY=$(openssl kdf -binary -keylen 64 \
 umask 077
 {
     echo "[default]"
-    echo "SPA_SERVER=$SPA_SERVER"
-    echo "SPA_SERVER_PORT=$SPA_PORT"
-    echo "SPA_SERVER_PROTO=udp"
-    echo "ACCESS=$ACCESS"
-    echo "ALLOW_IP=$ALLOW_IP"
-    echo "DIGEST_TYPE=sha256"
-    echo "FW_TIMEOUT=30"
-    echo "KEY_BASE64=$ENC_KEY"
-    echo "HMAC_KEY_BASE64=$HMAC_KEY"
+    echo "SPA_SERVER        $SPA_SERVER"
+    echo "SPA_SERVER_PORT   $SPA_PORT"
+    echo "SPA_SERVER_PROTO  udp"
+    echo "ACCESS            $ACCESS"
+    echo "ALLOW_IP          $ALLOW_IP"
+    echo "DIGEST_TYPE       sha256"
+    echo "FW_TIMEOUT        30"
+    echo "KEY_BASE64        $ENC_KEY"
+    echo "HMAC_KEY_BASE64   $HMAC_KEY"
 } > "$RC"
 
+# add `-s $(hostname -I)` for local private lan testing
 fwknop --use-hmac
