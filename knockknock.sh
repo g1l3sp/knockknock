@@ -7,13 +7,15 @@ SPA_PORT=62201             # must match the server's fwknopd.conf
 ACCESS=tcp/22
 ALLOW_IP=resolve           # or your known external IP, e.g. 203.0.113.50
 
-[ -n "${1:-}" ] || { echo "usage: $0 <salt>" >&2; exit 1; }
-SALT=$1
+echo -n "salt:"
+read -rs SALT; echo
+[ -n "$SALT" ] || { echo "empty salt" >&2; exit 1; }
 
 RC=$HOME/.fwknoprc
 [ -e "$RC" ] && { echo "$RC exists (rm it if it's the auto-generated template)" >&2; exit 1; }
 trap 'shred -u "$RC" 2>/dev/null || rm -f "$RC"' EXIT
 
+echo -n "passphrase:"
 read -rs PASS; echo
 [ -n "$PASS" ] || { echo "empty passphrase" >&2; exit 1; }
 
